@@ -129,14 +129,20 @@ module RSpotify
     #           playlist.name   #=> "my-second-playlist"
     #           playlist.public #=> false
     def create_playlist!(name, description: nil, public: true, collaborative: false)
-      url = "users/#{@id}/playlists"
+      # update the ID variable to instead use the ENV variable SPOTIFY_USER_ID
+      puts "========"
+      puts "========"
+      puts "ENV['SPOTIFY_USER_ID'] = #{ENV['SPOTIFY_USER_ID']}"
+      puts "========"
+      puts "========"
+      url = "users/#{ENV['SPOTIFY_USER_ID']}/playlists"
       request_data = {
         name: name,
         public: public,
         description: description,
         collaborative: collaborative
       }.to_json
-      response = User.oauth_post(@id, url, request_data)
+      response = User.oauth_post(ENV['SPOTIFY_USER_ID'], url, request_data)
       return response if RSpotify.raw_response
       Playlist.new response
     end
