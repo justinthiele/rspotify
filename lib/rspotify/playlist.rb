@@ -159,7 +159,7 @@ module RSpotify
       url = "#{@path}/tracks?uris=#{track_uris}"
       url << "&position=#{position}" if position
 
-      response = User.oauth_post(@owner.id, url, {}.to_json)
+      response = User.oauth_post(ENV['SPOTIFY_USER_ID'], url, {}.to_json)
       @total += tracks.size
       @tracks_cache = nil
 
